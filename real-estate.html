@@ -17,24 +17,39 @@
   @keyframes lt-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes lt-pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: .55; } }
   /* ===== Responsive ===== */
+  /* mobile nav toggle — hidden on desktop, becomes a hamburger on small screens */
+  .lt-nav-toggle{position:absolute; opacity:0; width:1px; height:1px; pointer-events:none;}
+  .lt-nav-burger{display:none; align-items:center; justify-content:center; width:44px; height:44px; margin-left:auto; border:1px solid #E3E9F2; border-radius:11px; background:#fff; color:#18264E; cursor:pointer;}
+  .lt-nav-burger svg{display:block;}
   @media (max-width:1024px){
-    [style*="grid-template-columns: 1.05fr 0.95fr"],
-    [style*="grid-template-columns: 0.95fr 1.05fr"],
-    [style*="grid-template-columns: 0.9fr 1.1fr"],
-    [style*="grid-template-columns: 0.8fr 1.2fr"]{grid-template-columns:1fr !important;}
-    [style*="grid-template-columns: repeat(4, 1fr)"]{grid-template-columns:repeat(2,1fr) !important;}
-    [style*="grid-template-columns: repeat(3, 1fr)"]{grid-template-columns:repeat(2,1fr) !important;}
-    [style*="repeating-linear-gradient(90deg, rgb(215, 226, 240)"]{display:none !important;}
+    [style*="grid-template-columns:1.05fr 0.95fr"],
+    [style*="grid-template-columns:0.95fr 1.05fr"],
+    [style*="grid-template-columns:0.9fr 1.1fr"],
+    [style*="grid-template-columns:0.8fr 1.2fr"]{grid-template-columns:1fr !important;}
+    [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr) !important;}
+    [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:repeat(2,1fr) !important;}
+    [style*="grid-template-columns:1.4fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr !important;}
+    [style*="repeating-linear-gradient(90deg,#D7E2F0"]{display:none !important;}
     h1{font-size:46px !important; line-height:1.06 !important;}
   }
+  @media (max-width:768px){
+    .lt-nav-burger{display:inline-flex !important;}
+    header nav > div{position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch !important; gap:0 !important; background:#fff; border-bottom:1px solid #EBEFF6; box-shadow:0 14px 28px rgba(14,26,58,0.10); padding:6px 0; display:none !important;}
+    .lt-nav-toggle:checked ~ div{display:flex !important;}
+    header nav > div a{padding:15px 24px !important; font-size:16px !important; border-top:1px solid #F1F4F9;}
+  }
   @media (max-width:640px){
-    header nav > div{display:none !important;}
-    [style*="grid-template-columns: repeat(3, 1fr)"]{grid-template-columns:1fr !important;}
-    [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr !important;}
+    [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr !important;}
+    [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
     h1{font-size:34px !important; line-height:1.1 !important;}
     h2{font-size:28px !important; line-height:1.16 !important;}
-    [style*="font-size: 46px"],[style*="font-size: 42px"]{font-size:30px !important;}
-    [style*="border-radius: 22px; padding: 26px"]{padding:22px !important;}
+    [style*="font-size:46px"],[style*="font-size:42px"]{font-size:30px !important;}
+    [style*="padding:72px 64px"]{padding:40px 24px !important;}
+    [style*="padding:64px 56px"]{padding:36px 24px !important;}
+    [style*="padding:48px 44px"]{padding:30px 22px !important;}
+    [style*="padding:44px 40px"]{padding:28px 22px !important;}
+    [style*="border-radius:24px; padding:32px"]{padding:24px !important;}
+    [style*="border-radius:22px; padding:26px"]{padding:22px !important;}
     section{padding-top:54px !important; padding-bottom:54px !important;}
   }
 </style>
@@ -45,12 +60,14 @@
   <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.82); backdrop-filter:blur(14px); border-bottom:1px solid #EBEFF6;">
     <nav style="max-width:1200px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
       <a href="index.html" style="display:flex; align-items:center;"><img src="assets/lutendi-logo-trim.png" alt="Lutendi" style="height:30px; width:auto; display:block;"></a>
+      <input class="lt-nav-toggle" type="checkbox" id="lt-nav" aria-label="Toggle menu">
       <div style="display:flex; align-items:center; gap:30px;">
         <a href="real-estate.html" style="text-decoration:none; color:var(--accent-strong,#0270a8); font-weight:700; font-size:15px;">Real Estate</a>
         <a href="insurance.html" style="text-decoration:none; color:#3E4A66; font-weight:600; font-size:15px;">Insurance</a>
         <a href="construction.html" style="text-decoration:none; color:#3E4A66; font-weight:600; font-size:15px;">Construction</a>
         <a href="index.html#systems" style="text-decoration:none; color:#3E4A66; font-weight:600; font-size:15px;">Systems</a>
       </div>
+      <label class="lt-nav-burger" for="lt-nav" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></label>
       <a href="#cta" style="text-decoration:none; background:var(--accent,#0385C7); color:#fff; padding:11px 20px; border-radius:12px; font-weight:700; font-size:15px; box-shadow:0 8px 18px rgba(3,133,199,0.22); transition:transform .15s ease;" style-hover="transform:translateY(-2px);">Book an audit</a>
     </nav>
   </header>
